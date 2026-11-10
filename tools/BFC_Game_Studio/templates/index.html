@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10141d">
+  <title>BFC Game Studio</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/studio.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">BFC</div>
+        <div><strong>BFC GAME STUDIO</strong><small>PROJECT EDITOR</small></div>
+      </div>
+      <div class="project-mini" id="project-mini"><span class="status-dot"></span><span id="project-mini-name">Nenhum projeto aberto</span></div>
+      <nav class="nav-list" id="main-nav">
+        <div class="nav-caption">PROJETO</div>
+        <button class="nav-item active" data-view="dashboard"><span>▦</span> Visão geral</button>
+        <div class="nav-caption">CONTEÚDO DO JOGO</div>
+        <button class="nav-item" data-view="characters"><span>♟</span> Personagens</button>
+        <button class="nav-item" data-view="stages"><span>▧</span> Fases e cenários</button>
+        <button class="nav-item" data-view="animations"><span>▤</span> Animações e sprites</button>
+        <button class="nav-item" data-view="audio"><span>♫</span> Áudio</button>
+        <button class="nav-item" data-view="stories"><span>▤</span> Histórias</button>
+        <div class="nav-caption">MOTOR DE COMBATE</div>
+        <button class="nav-item" data-view="moves"><span>⚔</span> Golpes e dano</button>
+        <button class="nav-item" data-view="rules"><span>⚙</span> Regras gerais</button>
+        <div class="nav-caption">FERRAMENTAS</div>
+        <button class="nav-item" data-view="assets"><span>▣</span> Gerenciador de recursos</button>
+        <button class="nav-item" data-view="converter"><span>⇧</span> Conversor de imagens</button>
+        <button class="nav-item" data-view="validator"><span>✓</span> Validação do projeto</button>
+      </nav>
+      <div class="sidebar-footer"><span class="status-dot green"></span> Editor local · Flask + Python</div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>Brazil Fight Combat</span><b>/</b><strong id="current-section">Visão geral</strong></div>
+        <div class="top-actions">
+          <span class="project-label" id="project-label">Aguardando projeto</span>
+          <button class="btn btn-primary btn-small" id="open-project-btn">Abrir projeto</button>
+        </div>
+      </header>
+      <section id="view-root" class="view-root">
+        <div class="loading-card"><div class="spinner"></div><p>Inicializando BFC Game Studio...</p></div>
+      </section>
+      <footer class="statusbar">
+        <span id="status-message">Pronto</span>
+        <span>960 × 540 · BFC Rust Engine · Editor Web</span>
+      </footer>
+    </main>
+  </div>
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='js/studio.js') }}"></script>
+</body>
+</html>

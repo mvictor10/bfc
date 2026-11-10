@@ -1,0 +1,5 @@
+BRAZIL FIGHT COMBAT — PORT RUST
+
+Esta versão Rust foi criada a partir do pacote Brazil Fight Combat fornecido pelo usuário nesta conversa. Ela inclui assets originais disponíveis no pacote (personagens, quadros, cenários, áudio e histórias) e uma reimplementação progressiva da lógica de jogo em Rust.
+
+Este port não declara a autoria original nem a licença dos assets fornecidos. Antes de distribuir ou publicar o jogo, confirme que você tem os direitos e as permissões necessárias para redistribuir todos os arquivos de arte, áudio, nomes e demais conteúdos originais.

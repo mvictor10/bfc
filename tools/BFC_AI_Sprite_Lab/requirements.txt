@@ -1,0 +1,2 @@
+# Pillow 13.0.0 oferece suporte oficial ao CPython 3.14.
+Pillow==13.0.0

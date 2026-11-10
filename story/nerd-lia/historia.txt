@@ -1,0 +1,3 @@
+Lia nunca tinha dado um soco na vida até encontrar, numa planilha vazada por acidente, o algoritmo que a Krayller Corp. usava pra decidir quem "sumia" primeiro de um bairro. Virou madrugadas decifrando a lógica — e um treino de luta decifrando o resto.
+
+Depois de derrubar Viktor Krayller, Lia publicou o código inteiro, comentado linha a linha, pra qualquer pessoa auditar. Hoje dá aula de ambos: defesa pessoal às terças, segurança de dados às quintas.

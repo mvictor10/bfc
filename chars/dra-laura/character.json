@@ -1,0 +1,123 @@
+{
+  "name": "Dra Laura",
+  "stats": {
+    "speed": 3.8,
+    "power": 0.9,
+    "hp": 300
+  },
+  "stage": "am",
+  "music": null,
+  "voice": "dra-laura",
+  "voices": {},
+  "art": {
+    "sprite": "sprite.png",
+    "face": "face.png"
+  },
+  "size": 300,
+  "anchor": {
+    "x": 0.5,
+    "y": 0.92
+  },
+  "facing": "right",
+  "chroma": {
+    "color": "#00ff00",
+    "tolerance": 90,
+    "softness": 60,
+    "maxHeight": 560
+  },
+  "animations": {
+    "idle": {
+      "prefix": "idle",
+      "fps": 8,
+      "mode": "loop"
+    },
+    "attack": {
+      "prefix": "attack",
+      "mode": "progress"
+    },
+    "kick": {
+      "prefix": "kick",
+      "mode": "progress"
+    },
+    "jump": {
+      "prefix": "jump",
+      "mode": "vy"
+    },
+    "crouch": {
+      "prefix": "crouch",
+      "fps": 14,
+      "mode": "once"
+    },
+    "walk": {
+      "prefix": "walk",
+      "fps": 12,
+      "mode": "loop"
+    },
+    "run": {
+      "prefix": "run",
+      "fps": 16,
+      "mode": "loop"
+    },
+    "defense": {
+      "prefix": "defense",
+      "fps": 14,
+      "mode": "once"
+    }
+  },
+  "effects": {
+    "punch": {
+      "prefix": "fx_punch",
+      "anchor": "attacker",
+      "offset": [
+        70,
+        170
+      ],
+      "fps": 24
+    },
+    "kick": {
+      "prefix": "fx_kick",
+      "anchor": "attacker",
+      "offset": [
+        90,
+        110
+      ],
+      "fps": 24
+    },
+    "hit": {
+      "prefix": "fx_hit",
+      "anchor": "target",
+      "offset": [
+        0,
+        150
+      ],
+      "fps": 24
+    },
+    "block": {
+      "prefix": "fx_block",
+      "anchor": "target",
+      "offset": [
+        0,
+        150
+      ],
+      "fps": 24
+    },
+    "dizzy": {
+      "prefix": "fx_dizzy",
+      "anchor": "head",
+      "offset": [
+        0,
+        170
+      ],
+      "fps": 10,
+      "loop": true
+    }
+  },
+  "moves": {},
+  "rig": {
+    "neck": 0.17,
+    "hip": 0.575,
+    "split": 0.529,
+    "flip": 0,
+    "skirt": 0
+  }
+}

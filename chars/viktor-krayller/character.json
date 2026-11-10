@@ -1,0 +1,145 @@
+{
+  "anchor": {
+    "x": 0.5,
+    "y": 0.92
+  },
+  "animations": {
+    "attack": {
+      "mode": "progress",
+      "prefix": "attack"
+    },
+    "run": {
+      "fps":4,
+      "mode": "progress",
+      "prefix": "run"
+    },
+    "crouch": {
+      "fps": 14,
+      "mode": "once",
+      "prefix": "crouch"
+    },
+    "defense": {
+      "fps": 14,
+      "mode": "once",
+      "prefix": "defense"
+    },
+    "idle": {
+      "fps": 8,
+      "mode": "loop",
+      "prefix": "idle"
+    },
+    "jump": {
+      "mode": "vy",
+      "prefix": "jump"
+    },
+    "kick": {
+      "mode": "progress",
+      "prefix": "kick"
+    },
+    "run": {
+      "fps": 16,
+      "mode": "loop",
+      "prefix": "run"
+    },
+    "walk": {
+      "fps": 12,
+      "mode": "loop",
+      "prefix": "walk"
+    }
+  },
+  "art": {
+    "face": "face.png",
+    "sprite": "sprite_fallback.jpg"
+  },
+  "body": {
+    "h": 230,
+    "w": 70
+  },
+  "chroma": {
+    "color": "#00ff00",
+    "maxHeight": 560,
+    "softness": 60,
+    "tolerance": 90
+  },
+  "effects": {
+    "block": {
+      "anchor": "target",
+      "fps": 24,
+      "offset": [
+        0,
+        150
+      ],
+      "prefix": "fx_block"
+    },
+    "dizzy": {
+      "anchor": "head",
+      "fps": 10,
+      "loop": true,
+      "offset": [
+        0,
+        170
+      ],
+      "prefix": "fx_dizzy"
+    },
+    "hit": {
+      "anchor": "target",
+      "fps": 24,
+      "offset": [
+        0,
+        150
+      ],
+      "prefix": "fx_hit"
+    },
+    "kick": {
+      "anchor": "attacker",
+      "fps": 24,
+      "offset": [
+        90,
+        110
+      ],
+      "prefix": "fx_kick"
+    },
+    "punch": {
+      "anchor": "attacker",
+      "fps": 24,
+      "offset": [
+        70,
+        170
+      ],
+      "prefix": "fx_punch"
+    }
+  },
+  "facing": "right",
+  "moves": {},
+  "music": " assets/audio/music/fase-01.mp3",
+  "name": "Viktor Krayller",
+  "rig": {
+    "flip": true,
+    "hip": 0.562,
+    "neck": 0.169,
+    "skirt": false,
+    "split": 0.431
+  },
+  "size": 300,
+  "stage": "mansao",
+  "stats": {
+    "hp": 400,
+    "power": 3.0,
+    "speed": 7.0
+  },
+  "voice": "viktor-krayller",
+  "voices": {
+    "fight": {
+      "files": [
+        "fight.mp3"
+      ],
+      "text": null
+    },
+    "win": {
+      "files": [
+        "win.mp3"
+      ],
+      "text": null
+    }
+  }
+}

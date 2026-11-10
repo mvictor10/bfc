@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprite Loader - Multi Animações</title>
+<style>
+  body{margin:0;background:#0f0f0f;color:#eee;font-family:system-ui;display:flex;flex-direction:column;align-items:center;padding:20px}
+  h1{margin:0 0 5px;font-size:22px}
+  p{margin:0 0 15px;color:#888;font-size:14px}
+  #drop{width:90%;max-width:520px;height:120px;border:2px dashed #444;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#888;background:#1a1a1a;cursor:pointer;text-align:center;padding:10px;box-sizing:border-box}
+  #drop.dragover{border-color:#00e676;background:#1e2e22;color:#fff}
+  #stage{width:400px;height:600px;background:#00FF00;margin:20px 0;border-radius:14px;position:relative;overflow:hidden;border:3px solid #333;display:flex;align-items:center;justify-content:center}
+  #stage.transparent{background: repeating-conic-gradient(#2a2a2a 0% 25%, #1a1a1a 0% 50%) 0 / 20px 20px}
+  #sprite{width:100%;height:100%;object-fit:contain}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:15px;max-width:520px}
+  button{padding:10px 18px;border:0;border-radius:8px;font-weight:700;background:#333;color:#fff;cursor:pointer;transition:background 0.2s;text-transform:uppercase}
+  button.active{background:#00e676;color:#000}
+  button.utility{background:#444}
+  .panel{background:#1e1e1e;padding:14px;border-radius:12px;width:90%;max-width:520px;margin-top:15px;box-sizing:border-box}
+  label{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+  input[type=range]{width:180px}
+  #thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  #thumbs img{width:50px;height:70px;object-fit:contain;background:#00FF00;border:2px solid transparent;border-radius:6px;cursor:pointer}
+  #thumbs img.active{border-color:#00e676}
+</style>
+</head>
+<body>
+
+<h1>Teste suas sprites - Multi Animações</h1>
+<p>Selecione ou arraste os arquivos na ordem sequencial das animações.</p>
+
+<div id="drop" onclick="document.getElementById('file').click()">
+  CLIQUE ou ARRASTE todas as imagens sequencialmente aqui<br>
+  <small id="dropHint">Carregue os frames ordenados por nome</small>
+</div>
+<input type="file" id="file" multiple accept="image/*" hidden>
+
+<div id="stage">
+  <img id="sprite" alt="Sprite Player">
+</div>
+
+<div class="controls" id="animButtons">
+  <!-- Botões de animação gerados dinamicamente -->
+</div>
+
+<div class="controls">
+  <button class="utility" onclick="toggleBackground()">Alternar Fundo</button>
+  <button class="utility" style="background:#d32f2f" onclick="clearSprites()">Resetar Tudo</button>
+</div>
+
+<div class="panel">
+  <label>
+    <span>Velocidade Animação (FPS): <b id="fpsVal">6</b></span>
+    <input type="range" id="fps" min="1" max="24" value="6" oninput="updateFPS(this.value)">
+  </label>
+  <div>Imagens Carregadas:</div>
+  <div id="thumbs"></div>
+</div>
+
+<script>
+  // 1. ADICIONE OU REMOVA SUAS ANIMAÇÕES AQUI:
+  // O script vai criar os botões e gerenciar a fila baseado nesta lista
+  const ANIMATION_TYPES = ['idle', 'walk', 'attack', 'kick', 'hit', 'die', 'jump', 'special', 'crouch'];
+  
+  // Cada animação terá por padrão 4 frames ao distribuir lotes automáticos
+  const FRAMES_PER_ANIMATION = 4; 
+
+  let sprites = {};
+  let currentAnim = ANIMATION_TYPES[0];
+  let currentIndex = 0;
+  let animInterval = null;
+  let fps = 6;
+
+  const dropZone = document.getElementById('drop');
+  const fileInput = document.getElementById('file');
+  const spriteImg = document.getElementById('sprite');
+  const thumbsContainer = document.getElementById('thumbs');
+  const stage = document.getElementById('stage');
+  const btnContainer = document.getElementById('animButtons');
+
+  // Inicializa o objeto de sprites baseado no array
+  function initSprites() {
+    ANIMATION_TYPES.forEach(type => {
+      sprites[type] = [];
+    });
+    document.getElementById('dropHint').innerText = `Suporta: ${ANIMATION_TYPES.join(', ').toUpperCase()}`;
+  }
+
+  // Gera os botões na tela dinamicamente
+  function renderButtons() {
+    btnContainer.innerHTML = '';
+    ANIMATION_TYPES.forEach(type => {
+      const btn = document.createElement('button');
+      btn.id = `btn_${type}`;
+      btn.innerText = type;
+      btn.onclick = () => switchAnimation(type);
+      if (type === currentAnim) btn.classList.add('active');
+      btnContainer.appendChild(btn);
+    });
+  }
+
+  // Drag and Drop
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+    }, false);
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    handleFiles(e.dataTransfer.files);
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    handleFiles(e.target.files);
+  });
+
+  function handleFiles(files) {
+    if (files.length === 0) return;
+    
+    // Organiza por ordem alfabética do nome do arquivo
+    const fileArray = Array.from(files).sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
+    
+    let loadedCount = 0;
+    fileArray.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        // Determina para qual animação o frame vai baseado na divisão do index
+        const animIndex = Math.floor(index / FRAMES_PER_ANIMATION);
+        
+        // Se houver mais arquivos que animações configuradas, joga na última
+        const targetAnim = ANIMATION_TYPES[animIndex] || ANIMATION_TYPES[ANIMATION_TYPES.length - 1];
+        
+        sprites[targetAnim].push(event.target.result);
+        loadedCount++;
+
+        if (loadedCount === fileArray.length) {
+          renderThumbs();
+          if (!animInterval) startAnimation();
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function startAnimation() {
+    clearInterval(animInterval);
+    animInterval = setInterval(() => {
+      const activeList = sprites[currentAnim];
+      if (activeList && activeList.length > 0) {
+        currentIndex = (currentIndex + 1) % activeList.length;
+        spriteImg.src = activeList[currentIndex];
+        updateActiveThumb();
+      }
+    }, 1000 / fps);
+  }
+
+  function switchAnimation(type) {
+    currentAnim = type;
+    currentIndex = 0;
+    
+    // Atualiza estados dos botões
+    ANIMATION_TYPES.forEach(t => {
+      const btn = document.getElementById(`btn_${t}`);
+      if (btn) btn.classList.toggle('active', t === type);
+    });
+    
+    if (sprites[currentAnim] && sprites[currentAnim].length > 0) {
+      spriteImg.src = sprites[currentAnim][currentIndex];
+    } else {
+      spriteImg.src = '';
+    }
+  }
+
+  function updateFPS(val) {
+    fps = val;
+    document.getElementById('fpsVal').innerText = val;
+    if (sprites[currentAnim] && sprites[currentAnim].length > 0) startAnimation();
+  }
+
+  function toggleBackground() {
+    stage.classList.toggle('transparent');
+  }
+
+  function clearSprites() {
+    clearInterval(animInterval);
+    animInterval = null;
+    spriteImg.src = '';
+    initSprites();
+    renderThumbs();
+  }
+
+  function renderThumbs() {
+    thumbsContainer.innerHTML = '';
+    ANIMATION_TYPES.forEach(type => {
+      if (!sprites[type]) return;
+      sprites[type].forEach((src, idx) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.dataset.type = type;
+        img.dataset.index = idx;
+        img.onclick = () => {
+          switchAnimation(type);
+          currentIndex = idx;
+          spriteImg.src = src;
+        };
+        thumbsContainer.appendChild(img);
+      });
+    });
+    updateActiveThumb();
+  }
+
+  function updateActiveThumb() {
+    const thumbs = thumbsContainer.querySelectorAll('img');
+    thumbs.forEach(img => {
+      const isCurrent = img.dataset.type === currentAnim && parseInt(img.dataset.index) === currentIndex;
+      img.classList.toggle('active', isCurrent);
+    });
+  }
+
+  // Inicialização
+  initSprites();
+  renderButtons();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+{
+  "anchor": {
+    "x": 0.5,
+    "y": 0.92
+  },
+  "animations": {
+    "attack": {
+      "fps": 1,
+      "frames": 24,
+      "mode": "progress",
+      "prefix": "attack"
+    },
+    "crouch": {
+      "fps": 23,
+      "frames": 24,
+      "mode": "once",
+      "prefix": "crouch"
+    },
+    "defense": {
+      "fps": 14,
+      "frames": 24,
+      "mode": "once",
+      "prefix": "defense"
+    },
+    "idle": {
+      "fps": 2,
+      "frames": 24,
+      "mode": "loop",
+      "prefix": "idle"
+    },
+    "jump": {
+      "fps": 8,
+      "frames": 24,
+      "mode": "vy",
+      "prefix": "jump"
+    },
+    "kick": {
+      "fps": 4,
+      "frames": 24,
+      "mode": "progress",
+      "prefix": "kick"
+    },
+    "run": {
+      "fps": 32,
+      "frames": 24,
+      "mode": "loop",
+      "prefix": "run"
+    },
+    "special": {
+      "fps": 32,
+      "frames": 24,
+      "mode": "once",
+      "prefix": "special"
+    },
+    "walk": {
+      "fps": 12,
+      "frames": 24,
+      "mode": "loop",
+      "prefix": "walk"
+    }
+  },
+  "art": {
+    "face": "face.png",
+    "sprite": "sprite.png"
+  },
+  "chroma": {
+    "color": "#00ff00",
+    "maxHeight": 560,
+    "softness": 60,
+    "tolerance": 90
+  },
+  "effects": {
+    "block": {
+      "anchor": "target",
+      "fps": 24,
+      "offset": [
+        0,
+        150
+      ],
+      "prefix": "fx_block"
+    },
+    "dizzy": {
+      "anchor": "head",
+      "fps": 10,
+      "loop": true,
+      "offset": [
+        0,
+        170
+      ],
+      "prefix": "fx_dizzy"
+    },
+    "hit": {
+      "anchor": "target",
+      "fps": 24,
+      "offset": [
+        0,
+        150
+      ],
+      "prefix": "fx_hit"
+    },
+    "kick": {
+      "anchor": "attacker",
+      "fps": 24,
+      "offset": [
+        90,
+        110
+      ],
+      "prefix": "fx_kick"
+    },
+    "punch": {
+      "anchor": "attacker",
+      "fps": 3,
+      "offset": [
+        70,
+        170
+      ],
+      "prefix": "fx_punch"
+    }
+  },
+  "facing": "right",
+  "maxFrames": 24,
+  "moves": {},
+  "music": "assets/audio/music/tema-futuro.mp3",
+  "name": "Amanda Krayller",
+  "rig": {
+    "flip": false,
+    "hip": 0.571,
+    "neck": 0.24,
+    "skirt": false,
+    "split": 0.493
+  },
+  "sheet": {
+    "atlas": "atlas.json",
+    "image": "sheet.png"
+  },
+  "size": 300,
+  "stage": "porto",
+  "stats": {
+    "hp": 200,
+    "power": 1.0,
+    "speed": 4.5
+  },
+  "voice": "amanda",
+  "voices": {},
+  "body": {
+    "w": 70,
+    "h": 230
+  }
+}

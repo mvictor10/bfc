@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "tracks": [
+    {
+      "id": "battle",
+      "path": "assets/audio/music/battle.mp3"
+    },
+    {
+      "id": "menu",
+      "path": "assets/audio/music/menu.mp3"
+    },
+    {
+      "id": "tema_cidade",
+      "path": "assets/audio/music/tema_cidade.wav"
+    },
+    {
+      "id": "tema_krayller",
+      "path": "assets/audio/music/tema_krayller.wav"
+    },
+    {
+      "id": "tema_pelourinho",
+      "path": "assets/audio/music/tema_pelourinho.wav"
+    },
+    {
+      "id": "tema_porto",
+      "path": "assets/audio/music/tema_porto.wav"
+    },
+    {
+      "id": "fase-01",
+      "path": "assets/audio/music/fase-01.mp3"
+    },
+    {
+      "id": "tema-futuro",
+      "path": "assets/audio/music/tema-futuro.mp3"
+    },
+    {
+      "id": "tema-ai",
+      "path": "assets/audio/music/tema-ai.mp3"
+    }
+  ]
+}
